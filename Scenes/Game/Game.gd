@@ -21,7 +21,6 @@ func spawn_pipes() -> void:
 
 
 func _on_timer_timeout() -> void:
-	print("Times up")
 	spawn_pipes()
 
 
