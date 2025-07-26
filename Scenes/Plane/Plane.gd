@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Tappy
 
-signal on_plane_die
+#signal on_plane_die
 
 const JUMP_POWER: float = -350.0
 
@@ -10,17 +10,13 @@ var _gravity: float = ProjectSettings.get("physics/2d/default_gravity")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var engine_sound: AudioStreamPlayer = $EngineSound
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func _physics_process(delta: float) -> void:
@@ -42,5 +38,6 @@ func fly(delta: float) -> void:
 		
 func die() -> void:
 	animated_sprite_2d.stop()
+	engine_sound.stop()
 	set_physics_process(false)
-	on_plane_die.emit()
+	SignalHub.emit_on_plane_died()

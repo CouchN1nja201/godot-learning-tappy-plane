@@ -1,10 +1,26 @@
 [gd_scene load_steps=10 format=3 uid="uid://doxoen3yxcw1f"]
 
 [ext_resource type="Texture2D" uid="uid://c7bh244kqkcft" path="res://assets/background/sky.png" id="1_p8rbg"]
-[ext_resource type="LabelSettings" uid="uid://blnlpdp5jpxds" path="res://Resources/Red Title.tres" id="2_cmk6n"]
-[ext_resource type="FontFile" uid="uid://b1mpv8i2hptld" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="3_i3fi7"]
-[ext_resource type="LabelSettings" uid="uid://ykxlmuw2a18f" path="res://Scenes/Main/red_text_32.tres" id="3_o8wgc"]
+[ext_resource type="Script" uid="uid://b52ojkhov8usw" path="res://Scenes/Main/Main.gd" id="1_w20t6"]
+[ext_resource type="LabelSettings" uid="uid://ykxlmuw2a18f" path="res://Resources/red_text_32.tres" id="3_o8wgc"]
+[ext_resource type="LabelSettings" uid="uid://dgmyprne2xpje" path="res://Resources/red_text_96.tres" id="4_o8wgc"]
 [ext_resource type="AudioStream" uid="uid://b8bgfbt3rx51u" path="res://assets/audio/bgm_menu.mp3" id="5_o8wgc"]
+[ext_resource type="LabelSettings" uid="uid://fwyuauwh6kpv" path="res://Resources/blue_text_48.tres" id="6_w20t6"]
+
+[sub_resource type="Animation" id="Animation_aw1lf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/GameStart:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_w20t6"]
 resource_name = "fade"
@@ -24,33 +40,11 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_aw1lf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MarginContainer/GameStart:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5s61s"]
 _data = {
 &"RESET": SubResource("Animation_aw1lf"),
 &"fade": SubResource("Animation_w20t6")
 }
-
-[sub_resource type="LabelSettings" id="LabelSettings_w20t6"]
-font = ExtResource("3_i3fi7")
-font_size = 48
-font_color = Color(0.788235, 1, 1, 1)
-shadow_size = 3
-shadow_color = Color(0, 0, 0.741176, 1)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -59,6 +53,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_w20t6")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -76,7 +71,7 @@ libraries = {
 }
 autoplay = "fade"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_o8wgc")
 autoplay = true
 
@@ -92,7 +87,7 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="HighScore" type="Label" parent="MarginContainer"]
+[node name="HighScoreLabel" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -101,11 +96,11 @@ label_settings = ExtResource("3_o8wgc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score" type="Label" parent="MarginContainer"]
+[node name="ScoreLabel" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-text = "1"
+text = "0000"
 label_settings = ExtResource("3_o8wgc")
 
 [node name="Title" type="Label" parent="MarginContainer"]
@@ -113,7 +108,7 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "TAPPY
 PLANE"
-label_settings = ExtResource("2_cmk6n")
+label_settings = ExtResource("4_o8wgc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -122,6 +117,6 @@ layout_mode = 2
 text = "PRESS SPACE
  TO 
 PLAY"
-label_settings = SubResource("LabelSettings_w20t6")
+label_settings = ExtResource("6_w20t6")
 horizontal_alignment = 1
 vertical_alignment = 1

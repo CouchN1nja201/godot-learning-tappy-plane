@@ -7,8 +7,17 @@ const PIPES = preload("res://Scenes/Pipes/Pipes.tscn")
 @onready var upper_point: Marker2D = $UpperPoint
 @onready var lower_point: Marker2D = $LowerPoint
 
+
+
+
+
 func _ready() -> void:
 	spawn_pipes() 
+	
+
+func _enter_tree() -> void:
+	SignalHub.on_plane_died.connect(_on_plane_died)
+	
 
 func spawn_pipes() -> void:
 	var new_pipes = PIPES.instantiate()
@@ -18,11 +27,13 @@ func spawn_pipes() -> void:
 		
 	new_pipes.position = Vector2(upper_point.position.x, y_pos)
 	add_child(new_pipes)
-
+	
 
 func _on_timer_timeout() -> void:
 	spawn_pipes()
+	
 
 
-func _on_plane_die() -> void:
+func _on_plane_died() -> void:
 	get_tree().paused = true
+	
